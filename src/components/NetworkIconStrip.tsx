@@ -5,6 +5,8 @@ const networkIconMap = {
   vk: { src: "/network-icons/vk.png", alt: "VK" },
 } as const;
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 type NetworkIconStripProps = {
   networks: Array<{
     slug: string;
@@ -24,7 +26,7 @@ export function NetworkIconStrip({ networks }: NetworkIconStripProps) {
 
         return (
           <div key={network.slug} className="network-icon-chip" title={network.label} aria-label={network.label}>
-            <img src={icon.src} alt={icon.alt} width={32} height={32} loading="lazy" />
+            <img src={`${basePath}${icon.src}`} alt={icon.alt} width={32} height={32} loading="lazy" />
           </div>
         );
       })}
