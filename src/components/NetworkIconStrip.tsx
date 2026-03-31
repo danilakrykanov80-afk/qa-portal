@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 const networkIconMap = {
-  max: { src: "/network-icons/max.svg", alt: "MAX" },
-  ok: { src: "/network-icons/ok.svg", alt: "OK" },
-  tg: { src: "/network-icons/tg.svg", alt: "Telegram" },
-  vk: { src: "/network-icons/vk.svg", alt: "VK" },
+  max: { src: "/network-icons/max.png.png", alt: "MAX" },
+  ok: { src: "/network-icons/ok.png.png", alt: "OK" },
+  tg: { src: "/network-icons/tg.png.png", alt: "Telegram" },
+  vk: { src: "/network-icons/vk.png.png", alt: "VK" },
 } as const;
 
 type NetworkIconStripProps = {
