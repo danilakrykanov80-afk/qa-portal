@@ -5,8 +5,6 @@ import { MetricChip } from "@/components/MetricChip";
 import {
   getEnvironmentBySlug,
   getEnvironmentSlugs,
-  getNetworkBySlug,
-  getNetworkSlugs,
   getSectionBySlug,
   getSectionSlugs,
   getServiceBySlug,
@@ -23,7 +21,6 @@ type SectionPageProps = {
   params: Promise<{
     serviceSlug: string;
     environmentSlug: string;
-    networkSlug: string;
     sectionSlug: string;
   }>;
 };
@@ -37,19 +34,16 @@ export const generateStaticParams = () =>
     }
 
     return getEnvironmentSlugs(service).flatMap((environmentSlug) =>
-      getNetworkSlugs(service).flatMap((networkSlug) =>
-        getSectionSlugs(service).map((sectionSlug) => ({
-          serviceSlug,
-          environmentSlug,
-          networkSlug,
-          sectionSlug,
-        })),
-      ),
+      getSectionSlugs(service).map((sectionSlug) => ({
+        serviceSlug,
+        environmentSlug,
+        sectionSlug,
+      })),
     );
   });
 
 export default async function SectionPage({ params }: SectionPageProps) {
-  const { serviceSlug, environmentSlug, networkSlug, sectionSlug } = await params;
+  const { serviceSlug, environmentSlug, sectionSlug } = await params;
   const service = getServiceBySlug(serviceSlug);
 
   if (!service) {
@@ -57,10 +51,9 @@ export default async function SectionPage({ params }: SectionPageProps) {
   }
 
   const environment = getEnvironmentBySlug(service, environmentSlug);
-  const network = getNetworkBySlug(service, networkSlug);
   const section = getSectionBySlug(service, sectionSlug);
 
-  if (!environment || !network || !section) {
+  if (!environment || !section) {
     notFound();
   }
 
@@ -74,10 +67,6 @@ export default async function SectionPage({ params }: SectionPageProps) {
             label: environment.label,
             href: `/services/${service.slug}/environments/${environment.slug}`,
           },
-          {
-            label: network.label,
-            href: `/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}`,
-          },
           { label: section.label },
         ]}
       />
@@ -86,7 +75,7 @@ export default async function SectionPage({ params }: SectionPageProps) {
         <p className="eyebrow">{section.group}</p>
         <h1>{section.label}</h1>
         <p className="hero-copy">
-          Ветка тестирования: <span>{environment.label}</span> / <span>{network.label}</span>.
+          Ветка тестирования: <span>{environment.label}</span>.
         </p>
         <div className="hero-grid">
           <MetricChip label="doc_id" value={section.docId} />
@@ -112,7 +101,7 @@ export default async function SectionPage({ params }: SectionPageProps) {
               </div>
               <h3>{testType.label}</h3>
               <Link
-                href={`/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}/sections/${section.slug}/test-types/${testType.slug}`}
+                href={`/services/${service.slug}/environments/${environment.slug}/sections/${section.slug}/test-types/${testType.slug}`}
                 className="primary-link"
               >
                 Открыть

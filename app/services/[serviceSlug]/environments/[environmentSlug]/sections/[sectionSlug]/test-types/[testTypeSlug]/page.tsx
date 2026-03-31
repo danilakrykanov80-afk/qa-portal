@@ -4,8 +4,6 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   getEnvironmentBySlug,
   getEnvironmentSlugs,
-  getNetworkBySlug,
-  getNetworkSlugs,
   getSectionBySlug,
   getSectionSlugs,
   getServiceBySlug,
@@ -18,7 +16,6 @@ type TestTypePageProps = {
   params: Promise<{
     serviceSlug: string;
     environmentSlug: string;
-    networkSlug: string;
     sectionSlug: string;
     testTypeSlug: string;
   }>;
@@ -33,28 +30,25 @@ export const generateStaticParams = () =>
     }
 
     return getEnvironmentSlugs(service).flatMap((environmentSlug) =>
-      getNetworkSlugs(service).flatMap((networkSlug) =>
-        getSectionSlugs(service).flatMap((sectionSlug) => {
-          const section = getSectionBySlug(service, sectionSlug);
+      getSectionSlugs(service).flatMap((sectionSlug) => {
+        const section = getSectionBySlug(service, sectionSlug);
 
-          if (!section) {
-            return [];
-          }
+        if (!section) {
+          return [];
+        }
 
-          return getTestTypeSlugs(section).map((testTypeSlug) => ({
-            serviceSlug,
-            environmentSlug,
-            networkSlug,
-            sectionSlug,
-            testTypeSlug,
-          }));
-        }),
-      ),
+        return getTestTypeSlugs(section).map((testTypeSlug) => ({
+          serviceSlug,
+          environmentSlug,
+          sectionSlug,
+          testTypeSlug,
+        }));
+      }),
     );
   });
 
 export default async function TestTypePage({ params }: TestTypePageProps) {
-  const { serviceSlug, environmentSlug, networkSlug, sectionSlug, testTypeSlug } = await params;
+  const { serviceSlug, environmentSlug, sectionSlug, testTypeSlug } = await params;
   const service = getServiceBySlug(serviceSlug);
 
   if (!service) {
@@ -62,10 +56,9 @@ export default async function TestTypePage({ params }: TestTypePageProps) {
   }
 
   const environment = getEnvironmentBySlug(service, environmentSlug);
-  const network = getNetworkBySlug(service, networkSlug);
   const section = getSectionBySlug(service, sectionSlug);
 
-  if (!environment || !network || !section) {
+  if (!environment || !section) {
     notFound();
   }
 
@@ -86,12 +79,8 @@ export default async function TestTypePage({ params }: TestTypePageProps) {
             href: `/services/${service.slug}/environments/${environment.slug}`,
           },
           {
-            label: network.label,
-            href: `/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}`,
-          },
-          {
             label: section.label,
-            href: `/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}/sections/${section.slug}`,
+            href: `/services/${service.slug}/environments/${environment.slug}/sections/${section.slug}`,
           },
           { label: testType.label },
         ]}
@@ -101,7 +90,7 @@ export default async function TestTypePage({ params }: TestTypePageProps) {
         <p className="eyebrow">{section.label}</p>
         <h1>{testType.label}</h1>
         <p className="hero-copy">
-          Артефакты открыты в ветке <span>{environment.label}</span> для соцсети <span>{network.label}</span>.
+          Артефакты открыты в ветке <span>{environment.label}</span>.
         </p>
       </section>
 

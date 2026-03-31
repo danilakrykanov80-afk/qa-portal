@@ -207,6 +207,13 @@ a {
   gap: 8px;
 }
 
+.section-card__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .service-card__status,
 .route-pill,
 .artifact-card__kind {
@@ -308,6 +315,31 @@ a {
   margin-top: auto;
 }
 
+.section-card--with-icons .primary-link {
+  margin-top: auto;
+}
+
+.network-icon-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.network-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.network-icon-chip img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
 .flow-grid {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
@@ -380,5 +412,14 @@ a {
 
   .hero-panel h1 {
     max-width: 100%;
+  }
+
+  .section-card__topline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .network-icon-strip {
+    margin-left: 0;
   }
 }

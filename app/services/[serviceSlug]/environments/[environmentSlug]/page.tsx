@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MetricChip } from "@/components/MetricChip";
+import { NetworkIconStrip } from "@/components/NetworkIconStrip";
 import {
   getEnvironmentBySlug,
   getEnvironmentSlugs,
@@ -44,6 +45,12 @@ export default async function EnvironmentPage({ params }: EnvironmentPageProps) 
     notFound();
   }
 
+  const groupedSections = service.sections.reduce<Record<string, typeof service.sections>>((groups, section) => {
+    groups[section.group] ??= [];
+    groups[section.group].push(section);
+    return groups;
+  }, {});
+
   return (
     <main className="page-shell">
       <Breadcrumbs
@@ -65,36 +72,44 @@ export default async function EnvironmentPage({ params }: EnvironmentPageProps) 
         </div>
       </section>
 
-      <section className="content-section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Следующий шаг</p>
-            <h2>Выберите соцсеть</h2>
+      {Object.entries(groupedSections).map(([group, sections]) => (
+        <section key={group} className="content-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Группа</p>
+              <h2>{group}</h2>
+            </div>
+            <a href={environment.productUrl} target="_blank" rel="noreferrer" className="secondary-link">
+              Открыть {environment.label}
+            </a>
           </div>
-          <a href={environment.productUrl} target="_blank" rel="noreferrer" className="secondary-link">
-            Открыть {environment.label}
-          </a>
-        </div>
 
-        <div className="card-grid">
-          {service.networks.map((network) => (
-            <article key={network.slug} className="service-card">
-              <div className="service-card__header">
-                <span className="pill">Соцсеть</span>
-              </div>
-              <h3>{network.label}</h3>
-              <div className="service-card__footer">
+          <div className="card-grid">
+            {sections.map((section) => (
+              <article key={section.slug} className="section-card section-card--with-icons">
+                <div className="section-card__topline">
+                  <div className="section-card__meta">
+                    <span className="pill">{section.docId}</span>
+                  </div>
+                  <NetworkIconStrip networks={service.networks} />
+                </div>
+                <h3>{section.label}</h3>
+                <ul className="flat-list">
+                  <li>Тест-кейсы: {section.testCasesCount}</li>
+                  <li>Чек-листы: {section.checklistsCount}</li>
+                  <li>Баг-артефакты: {section.bugReportsCount}</li>
+                </ul>
                 <Link
-                  href={`/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}`}
+                  href={`/services/${service.slug}/environments/${environment.slug}/sections/${section.slug}`}
                   className="primary-link"
                 >
-                  Открыть
+                  Открыть раздел
                 </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
     </main>
   );
 }
