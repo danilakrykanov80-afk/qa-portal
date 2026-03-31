@@ -57,7 +57,6 @@ export default async function EnvironmentPage({ params }: EnvironmentPageProps) 
       <section className="hero-panel hero-panel--compact">
         <p className="eyebrow">Контур тестирования</p>
         <h1>{environment.label}</h1>
-        <p className="hero-copy">{environment.summary}</p>
         <div className="hero-grid">
           <MetricChip label="Соцсетей" value={service.networks.length} />
           <MetricChip label="Разделов" value={service.metrics.sections} />
@@ -84,9 +83,6 @@ export default async function EnvironmentPage({ params }: EnvironmentPageProps) 
                 <span className="pill">Соцсеть</span>
               </div>
               <h3>{network.label}</h3>
-              <p className="muted-copy">
-                Все сценарии внутри этой ветки будут относиться к окружению {environment.label}.
-              </p>
               <div className="service-card__footer">
                 <Link
                   href={`/services/${service.slug}/environments/${environment.slug}/networks/${network.slug}`}

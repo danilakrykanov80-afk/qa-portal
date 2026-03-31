@@ -27,10 +27,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <section className="hero-panel hero-panel--compact">
         <p className="eyebrow">Окружения</p>
         <h1>{service.label}</h1>
-        <p className="hero-copy">
-          Для BotHunter тесты теперь разделены по контурам. Сначала выбираем `stage` или `prod`,
-          а уже потом идем в нужную соцсеть, раздел и тип проверки.
-        </p>
       </section>
 
       <section className="content-section">
@@ -41,7 +37,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <span className="pill">Окружение</span>
               </div>
               <h3>{environment.label}</h3>
-              <p className="muted-copy">{environment.summary}</p>
               <div className="service-card__footer">
                 <Link
                   href={`/services/${service.slug}/environments/${environment.slug}`}
