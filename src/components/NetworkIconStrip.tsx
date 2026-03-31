@@ -1,10 +1,8 @@
-import Image from "next/image";
-
 const networkIconMap = {
-  max: { src: "/network-icons/max.png.png", alt: "MAX" },
-  ok: { src: "/network-icons/ok.png.png", alt: "OK" },
-  tg: { src: "/network-icons/tg.png.png", alt: "Telegram" },
-  vk: { src: "/network-icons/vk.png.png", alt: "VK" },
+  max: { src: "/network-icons/max.png", alt: "MAX" },
+  ok: { src: "/network-icons/ok.png", alt: "OK" },
+  tg: { src: "/network-icons/tg.png", alt: "Telegram" },
+  vk: { src: "/network-icons/vk.png", alt: "VK" },
 } as const;
 
 type NetworkIconStripProps = {
@@ -16,7 +14,7 @@ type NetworkIconStripProps = {
 
 export function NetworkIconStrip({ networks }: NetworkIconStripProps) {
   return (
-    <div className="network-icon-strip" aria-label="Доступные соцсети">
+    <div className="network-icon-strip" aria-label="Available networks">
       {networks.map((network) => {
         const icon = networkIconMap[network.slug as keyof typeof networkIconMap];
 
@@ -26,7 +24,7 @@ export function NetworkIconStrip({ networks }: NetworkIconStripProps) {
 
         return (
           <div key={network.slug} className="network-icon-chip" title={network.label} aria-label={network.label}>
-            <Image src={icon.src} alt={icon.alt} width={32} height={32} />
+            <img src={icon.src} alt={icon.alt} width={32} height={32} loading="lazy" />
           </div>
         );
       })}
