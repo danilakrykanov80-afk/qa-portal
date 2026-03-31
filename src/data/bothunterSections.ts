@@ -45,6 +45,20 @@ export const bothunterService: Service = {
     "Типы тестирования отделены от артефактов хранения.",
     "Таблицы docs.targethunter.ru остаются источником правды."
   ],
+  environments: [
+    {
+      slug: "stage",
+      label: "Stage",
+      summary: "РўРµСЃС‚РѕРІРѕРµ РѕРєСЂСѓР¶РµРЅРёРµ РґР»СЏ РїСЂРѕРІРµСЂРєРё РЅРѕРІС‹С… С„РёС‡, smoke-РїСЂРѕС…РѕРґР° Рё regression РїРµСЂРµРґ prod.",
+      productUrl: "https://bot-new.targethunter.ru/",
+    },
+    {
+      slug: "prod",
+      label: "Prod",
+      summary: "Р‘РѕРµРІРѕРµ РѕРєСЂСѓР¶РµРЅРёРµ РґР»СЏ С„РёРЅР°Р»СЊРЅРѕР№ РїСЂРѕРІРµСЂРєРё РєСЂРёС‚РёС‡РЅС‹С… user-flow Рё РїРѕРІРµРґРµРЅРёСЏ СЃРµСЂРІРёСЃР° РЅР° СЂРµР°Р»СЊРЅРѕРј РєРѕРЅС‚СѓСЂРµ.",
+      productUrl: "https://bot.targethunter.ru/",
+    },
+  ],
   sheets,
   networks: [
     { slug: "vk", label: "ВК" },

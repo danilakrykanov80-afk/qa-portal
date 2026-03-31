@@ -43,6 +43,13 @@ export type SocialNetwork = {
   label: string;
 };
 
+export type TestEnvironment = {
+  slug: string;
+  label: string;
+  summary: string;
+  productUrl: string;
+};
+
 export type Service = {
   slug: string;
   label: string;
@@ -60,6 +67,7 @@ export type Service = {
     bugTemplates: number;
   };
   highlights: string[];
+  environments: TestEnvironment[];
   sheets: {
     generalDocs: string;
     testCases: string;

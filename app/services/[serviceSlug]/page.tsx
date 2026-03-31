@@ -25,25 +25,33 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <Breadcrumbs items={[{ label: "Главная", href: "/" }, { label: service.label }]} />
 
       <section className="hero-panel hero-panel--compact">
-        <p className="eyebrow">Соцсети</p>
+        <p className="eyebrow">Окружения</p>
         <h1>{service.label}</h1>
+        <p className="hero-copy">
+          Для BotHunter тесты теперь разделены по контурам. Сначала выбираем `stage` или `prod`,
+          а уже потом идем в нужную соцсеть, раздел и тип проверки.
+        </p>
       </section>
 
       <section className="content-section">
         <div className="card-grid">
-          {service.networks.map((network) => (
-            <article key={network.slug} className="service-card">
+          {service.environments.map((environment) => (
+            <article key={environment.slug} className="service-card">
               <div className="service-card__header">
-                <span className="pill">Соцсеть</span>
+                <span className="pill">Окружение</span>
               </div>
-              <h3>{network.label}</h3>
+              <h3>{environment.label}</h3>
+              <p className="muted-copy">{environment.summary}</p>
               <div className="service-card__footer">
                 <Link
-                  href={`/services/${service.slug}/networks/${network.slug}`}
+                  href={`/services/${service.slug}/environments/${environment.slug}`}
                   className="primary-link"
                 >
-                  Открыть
+                  Открыть портал
                 </Link>
+                <a href={environment.productUrl} target="_blank" rel="noreferrer" className="secondary-link">
+                  Открыть контур
+                </a>
               </div>
             </article>
           ))}

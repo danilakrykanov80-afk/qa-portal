@@ -16,6 +16,12 @@ export const getNetworkBySlug = (service: Service, networkSlug: string) =>
 export const getNetworkSlugs = (service: Service) =>
   service.networks.map((network) => network.slug);
 
+export const getEnvironmentBySlug = (service: Service, environmentSlug: string) =>
+  service.environments.find((environment) => environment.slug === environmentSlug);
+
+export const getEnvironmentSlugs = (service: Service) =>
+  service.environments.map((environment) => environment.slug);
+
 export const getSectionBySlug = (service: Service, sectionSlug: string) =>
   service.sections.find((section) => section.slug === sectionSlug);
 
