@@ -42,11 +42,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   href={`/services/${service.slug}/environments/${environment.slug}`}
                   className="primary-link"
                 >
-                  Открыть портал
+                  Открыть тесты
                 </Link>
                 <a href={environment.productUrl} target="_blank" rel="noreferrer" className="secondary-link">
-                  Открыть контур
+                  Открыть портал
                 </a>
+                {environment.cookieUrl ? (
+                  <a href={environment.cookieUrl} target="_blank" rel="noreferrer" className="secondary-link">
+                    Cookie
+                  </a>
+                ) : null}
               </div>
             </article>
           ))}

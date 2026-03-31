@@ -48,6 +48,7 @@ export type TestEnvironment = {
   label: string;
   summary: string;
   productUrl: string;
+  cookieUrl?: string;
 };
 
 export type Service = {
